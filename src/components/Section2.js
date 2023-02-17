@@ -14,37 +14,29 @@ export function Section2(){
     
     let [ state, setState ] = useState(false);
 
-    const quantity = useRef({ opacity: 0, scale: 2 })
+    const quantity = useRef({ opacity: 0, scale: 2, translate: 400 })
 
     let animation = anime({
         targets: quantity.current,
         opacity: [0, 1],
         scale: [2, 1],
+        translate: [400, 0],
         duration: 1000,
         easing: 'easeOutQuad',
         autoplay: false,
         delay: 200,
         update: ()=>{
-            console.log("play")
             col1.current.style.opacity = quantity.current.opacity;
             col2.current.style.opacity = quantity.current.opacity;
             
-            /* col1.current.style.transform = `scale(${ quantity.current.scale })`;
-            col2.current.style.transform = `scale(${ quantity.current.scale })`; */
-            
-            /* p1.current.style.transform = `translateY(${ -quantity.current.transform }px)`;
-            p2.current.style.transform = `translateX(${ -quantity.current.transform }px)`; */
+            col1.current.style.transform = `scale(${ quantity.current.scale }) translateX(${ -quantity.current.translate }px)`;
+            col2.current.style.transform = `scale(${ quantity.current.scale }) translateX(${ quantity.current.translate }px)`;
         }
     });
 
     const cb = (entries)=>{
         if(entries[0].isIntersecting){
-            console.log('cb');
             animation.play();
-            /* if(!state){
-                animation.finished.then(setState(true));
-            } */
-            
         }
     }
 
@@ -63,8 +55,8 @@ export function Section2(){
 
     }, [container, cb]);
     return(
-        <Section2Container ref={container}>
-            <Section2Wrapper>
+        <Section2Container>
+            <Section2Wrapper ref={container}>
                 <Col33 ref={col1}>
                     <ColInt>
                         <Paragraph>
@@ -137,11 +129,13 @@ const BaseContainer = styled(Flex)`
 const Col33 = styled(BaseContainer)`
     width: 33%;
     position: relative;
+    opacity: 0;
 `;
 
 const Col66 = styled(BaseContainer)`
     width: 66%;
     position: relative;
+    opacity: 0;
 `;
 
 const ColInt = styled(Flex)`

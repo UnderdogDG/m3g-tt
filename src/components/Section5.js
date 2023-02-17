@@ -66,16 +66,6 @@ const Section5Container = styled(MainSection)`
 const Section5Wrapper = styled(SectionContainer)`
     min-height: auto;
     padding: 40px 80px;
-    /* width: 100vw;
-    max-width: 1440px;
-    min-height: 100vh;
-    background-color: ${ ({theme})=>theme.color.white };
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 40px; */
 `;
 
 const TitleContainer = styled.div`

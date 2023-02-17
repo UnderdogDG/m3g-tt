@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { useRef, useEffect, useState } from 'react';
+import anime from 'animejs/lib/anime.es';
 
 import { Col20, Col33, Col66, Col80, MainSection, ResponsiveImage, RowContainer, SectionContainer } from '../containers';
 import { Counter } from "./counter";
@@ -8,9 +10,45 @@ import { section3 } from "../utils/data/s3";
 import map from '../imgs/map-regions.svg';
 
 export function Section3(){
+    const container = useRef(null);
+
+    const cb = (entries)=>{
+        if(entries[0].isIntersecting){
+            let animation = anime({
+                targets: '#menu2 li',
+                opacity: {
+                    value: [0, 1],
+                    delay: anime.stagger(30),
+                },
+                translateY:{
+                    value: [-400, 0]
+                },
+                
+                duration: 800,
+                easing: 'linear',
+            });
+            
+        }
+    }
+
+    useEffect(()=>{
+        const observer = new IntersectionObserver(cb, {
+            root: null,
+            threshold: 1.0
+        });
+
+        if(container.current) observer.observe(container.current);
+
+        return ()=>{
+            if(container.current) observer.unobserve(container.current);
+        }
+
+
+    }, [container]);
+
     return(
         <Section3Container>
-            <Section3Wrapper>
+            <Section3Wrapper ref={container}>
                 <ColLeft>
                     <TitleContainer>
                         <Title>
@@ -24,7 +62,7 @@ export function Section3(){
                         <MenuWrapper>
                             <Serv1Container>
                                 { section3.col1.menu.submenu1.map((e)=>(
-                                    <ServItem key={ e }>
+                                    <ServItem className="item" key={ e }>
                                         {e}
                                     </ServItem>
                                 )) }
@@ -73,7 +111,7 @@ export function Section3(){
                         </ColRTitle>
                         
                     </ColRTitleContainer>
-                    <ColRLogosContainer>
+                    <ColRLogosContainer id='menu2'>
                         { section3.col2.logos.map((e)=>(
                             <ColRLogosItem key={ e } >
                                 { e }
@@ -170,6 +208,7 @@ const ServItem = styled.li`
     padding: 5px 8px;
     color: ${ ({ theme })=>theme.color.white };
     font-weight: 600;
+    position: relative;
 `;
 
 const CounterWrapper = styled(Col33)`

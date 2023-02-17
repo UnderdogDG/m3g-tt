@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { useRef, useEffect, useState } from 'react';
+import anime from 'animejs/lib/anime.es';
 
 import { SectionContainer, RowContainer, StyledImage, Col33, Col45, Col66, Col100, ResposiveContainer, MainSection } from '../containers';
 
@@ -7,23 +9,82 @@ import imgLeft from '../imgs/img-conectando-l.png';
 import imgRight from '../imgs/img-conectando-r.png';
 
 export function Section4(){
+    const container = useRef(null);
+    const img1 = useRef(null);
+    const img2 = useRef(null);
+    const col1 = useRef(null);
+    const text = useRef(null);
+    const paragraph = useRef(null);
+    
+    let [ state, setState ] = useState(false);
+
+    const quantity = useRef({ opacity: 0, scale: 1.5, translate: 400 })
+
+    let animation = anime({
+        targets: quantity.current,
+        opacity: [0, 1],
+        scale: [2, 1],
+        translate: [400, 0],
+        duration: 1000,
+        easing: 'easeOutQuad',
+        autoplay: false,
+        delay: 200,
+        update: ()=>{
+            img1.current.style.opacity = quantity.current.opacity;
+            img2.current.style.opacity = quantity.current.opacity;
+            
+            img1.current.style.transform = `scale(${ quantity.current.scale }) translateX(${ -quantity.current.translate }px)`;
+            img2.current.style.transform = `scale(${ quantity.current.scale }) translateY(${ -quantity.current.translate }px)`;
+
+            col1.current.style.transform = `translateX(${ quantity.current.translate }px)`;
+            text.current.style.opacity = quantity.current.opacity;
+            text.current.style.transform = `translateY(${ quantity.current.translate }px)`;
+            paragraph.current.style.opacity = quantity.current.opacity;
+        
+            
+            /* p1.current.style.transform = `translateY(${ -quantity.current.transform }px)`;
+            p2.current.style.transform = `translateX(${ -quantity.current.transform }px)`; */
+        }
+    });
+
+    const cb = (entries)=>{
+        if(entries[0].isIntersecting){
+            animation.play();
+            
+        }
+    }
+
+    useEffect(()=>{
+        const observer = new IntersectionObserver(cb, {
+            root: null,
+            threshold: 1.0
+        });
+
+        if(container.current) observer.observe(container.current);
+
+        return ()=>{
+            if(container.current) observer.unobserve(container.current);
+        }
+
+
+    }, [container, cb]);
     return(
         <Section4Container>
-            <Section4Wrapper>
+            <Section4Wrapper ref={ container }>
                 <RowContainer>
                     <ImageContainer>
                         <ColLeft>
                             <ImageWrapper>
-                                <StyledImage src={ imgLeft }/>
+                                <StyledImage ref={img1} src={ imgLeft }/>
                             </ImageWrapper>
                         </ColLeft>
                         <ColRight>
                             <ImageWrapper>
-                                <StyledImage src={ imgRight }/>
+                                <StyledImage ref={img2} src={ imgRight }/>
                             </ImageWrapper>
                         </ColRight>
                     </ImageContainer>
-                    <CornerContainer>
+                    <CornerContainer ref={ col1 }>
                         <RowContainer> 
                             <Col33>
                                 <QuadContainer />
@@ -54,7 +115,7 @@ export function Section4(){
                 </RowContainer>
                 <ContentContainer>
                     <ContentWrapper>
-                        <TitleSection>
+                        <TitleSection ref={text}>
                             <span className='top'>
                                 { section4.header }
                             </span>
@@ -64,7 +125,7 @@ export function Section4(){
                             </span>
                         </TitleSection>
                         <RowContainer>
-                            <BodySection>
+                            <BodySection ref={paragraph}>
                                 { section4.content }
                             </BodySection>
                         </RowContainer>
@@ -161,6 +222,7 @@ const InfoContainer = styled(Col66)`
     justify-content: center;
     align-items: flex-start;
     padding-left: 20px;
+    position: relative;
 `;
 
 const InfoRow = styled(RowContainer)`
@@ -213,6 +275,8 @@ const TitleSection = styled.h2`
     text-align: center;
     line-height: 0.7em;
     margin-bottom: 40px;
+    display: inline-block;
+    position: relative;
 
     .top{
         display: inline-block;
