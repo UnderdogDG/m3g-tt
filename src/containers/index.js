@@ -29,7 +29,7 @@ export const SectionContainer = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding: 40px;
+    padding: 80px;
     
 `;
 

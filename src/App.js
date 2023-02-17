@@ -8,7 +8,7 @@ import { Section5 } from './components/Section5';
 function App() {
   return (
     <>
-      {/* <NavBar /> */}
+      <NavBar />
       <Section1 />
       <Section2 />
       <Section3 />
