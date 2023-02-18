@@ -6,17 +6,19 @@ export function PlotBar({ year, amount, max, play=false, delay}){
     
     const bar = useRef(null);
     const counter = useRef(null);
-    const quantity = useRef({ amount: 0 })
+    const quantity = useRef({ amount: 0, opacity: 0 })
 
     let animation = anime({
         targets: quantity.current,
         amount: [0, amount],
+        opacity: [0, 1],
         duration: 1000,
         easing: 'easeInOutCirc',
         autoplay: false,
         delay,
         update: ()=>{
             bar.current.style.width = `${(quantity.current.amount * 100) / max}%`;
+            bar.current.style.opacity = quantity.current.opacity;
             counter.current.innerHTML = quantity.current.amount.toFixed(0);
         }
     });
@@ -81,6 +83,7 @@ const AnimatedBar = styled.span`
     position: absolute;
     top: 0;
     left: 0;
+    opacity: 0;
 `;
 
 const PlotBarLabel = styled.p`

@@ -24,7 +24,7 @@ export function Section2(){
         duration: 1000,
         easing: 'easeOutQuad',
         autoplay: false,
-        delay: 200,
+        delay: 0,
         update: ()=>{
             col1.current.style.opacity = quantity.current.opacity;
             col2.current.style.opacity = quantity.current.opacity;
@@ -43,7 +43,7 @@ export function Section2(){
     useEffect(()=>{
         const observer = new IntersectionObserver(cb, {
             root: null,
-            threshold: 1.0
+            threshold: 0.8
         });
 
         if(container.current) observer.observe(container.current);

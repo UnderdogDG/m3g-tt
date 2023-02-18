@@ -28,10 +28,11 @@ export function Section4(){
         duration: 1000,
         easing: 'easeOutQuad',
         autoplay: false,
-        delay: 200,
+        delay: 0,
         update: ()=>{
             img1.current.style.opacity = quantity.current.opacity;
             img2.current.style.opacity = quantity.current.opacity;
+            col1.current.style.opacity = quantity.current.opacity;
             
             img1.current.style.transform = `scale(${ quantity.current.scale }) translateX(${ -quantity.current.translate }px)`;
             img2.current.style.transform = `scale(${ quantity.current.scale }) translateY(${ -quantity.current.translate }px)`;
@@ -57,7 +58,7 @@ export function Section4(){
     useEffect(()=>{
         const observer = new IntersectionObserver(cb, {
             root: null,
-            threshold: 1.0
+            threshold: 0.8
         });
 
         if(container.current) observer.observe(container.current);
@@ -74,13 +75,13 @@ export function Section4(){
                 <RowContainer>
                     <ImageContainer>
                         <ColLeft>
-                            <ImageWrapper>
-                                <StyledImage ref={img1} src={ imgLeft }/>
+                            <ImageWrapper ref={img1}>
+                                <StyledImage  src={ imgLeft }/>
                             </ImageWrapper>
                         </ColLeft>
                         <ColRight>
-                            <ImageWrapper>
-                                <StyledImage ref={img2} src={ imgRight }/>
+                            <ImageWrapper ref={img2}>
+                                <StyledImage src={ imgRight }/>
                             </ImageWrapper>
                         </ColRight>
                     </ImageContainer>
@@ -193,6 +194,7 @@ const ImageWrapper = styled.div`
     height: 0;
     padding-bottom: 100%;
     position: relative;
+    opacity: 0;
 `;
 
 const CornerContainer = styled(Col33)`
@@ -200,6 +202,7 @@ const CornerContainer = styled(Col33)`
     justify-content: flex-start;
     align-items: flex-start;
     padding-left: 20px;
+    opacity: 0;
 `;
 
 const QuadContainer = styled(ResposiveContainer)`

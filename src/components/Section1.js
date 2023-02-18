@@ -33,7 +33,7 @@ export function Section1(){
         duration: 1000,
         easing: 'easeOutQuad',
         autoplay: false,
-        delay: 200,
+        delay: 0,
         update: ()=>{
             img1.current.style.opacity = quantity.current.opacity;
             img2.current.style.opacity = quantity.current.opacity;
@@ -63,7 +63,7 @@ export function Section1(){
     useEffect(()=>{
         const observer = new IntersectionObserver(cb, {
             root: null,
-            threshold: 1.0
+            threshold: 0.8
         });
 
         if(container.current) observer.observe(container.current);
@@ -203,6 +203,7 @@ const Col1Img1 = styled.img`
     top: 20%;
     left: 0;
     transform: translate(0, 0);
+    opacity: 0;
     z-index: 2;
 `;
 
@@ -212,6 +213,7 @@ const Col1Img2 = styled.img`
     bottom: -20%;
     right: -15%;
     transform: translate(0, 0);
+    opacity: 0;
     z-index: 1;
 `;
 
@@ -238,6 +240,7 @@ const Col2Img1 = styled.img`
     top: 10%;
     left: 5%;
     transform: translate(0, 0);
+    opacity: 0;
     z-index: 1;
 `;
 
@@ -247,6 +250,7 @@ const Col2Img2 = styled.img`
     bottom: -40px;
     right: -30%;
     transform: translate(0, 0);
+    opacity: 0;
     z-index: 2;
 `;
 
@@ -273,6 +277,7 @@ const Col3Img1 = styled.img`
     top: -30px;
     right: 0;
     transform: translate(0, 0);
+    opacity: 0;
     z-index: 1;
 `;
 

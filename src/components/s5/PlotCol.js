@@ -37,7 +37,7 @@ export function PlotCol({ title, data, max }){
     useEffect(()=>{
         const observer = new IntersectionObserver(cb, {
             root: null,
-            threshold: 1.0
+            threshold: 0.9
         });
 
         if(container.current) observer.observe(container.current);

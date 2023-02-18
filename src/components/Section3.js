@@ -25,6 +25,7 @@ export function Section3(){
                 },
                 
                 duration: 800,
+                delay: 0,
                 easing: 'linear',
             });
             
@@ -34,7 +35,7 @@ export function Section3(){
     useEffect(()=>{
         const observer = new IntersectionObserver(cb, {
             root: null,
-            threshold: 1.0
+            threshold: 0.8
         });
 
         if(container.current) observer.observe(container.current);
