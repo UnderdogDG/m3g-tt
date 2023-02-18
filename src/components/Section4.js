@@ -69,7 +69,7 @@ export function Section4(){
 
     }, [container, cb]);
     return(
-        <Section4Container>
+        <Section4Container id="nosotros">
             <Section4Wrapper ref={ container }>
                 <RowContainer>
                     <ImageContainer>

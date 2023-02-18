@@ -8,20 +8,19 @@ export function NavBar(){
         <Nav>
             <NavContainer>
                 <LogoContainer>
-                    <Logo />
+                    <Logo href='#inicio'/>
                 </LogoContainer>
                 <NavMenuContainer>
                     <NavMenu>
                         {
                             nav.links.map((e)=>(
-                                <NavItem key={ e.label }>
-                                    <NavLink href={ e.link }>
+                                <NavItem key={ e.label } >
+                                    <NavLink href={ e.link } download={ (e.download ? true : false) }>
                                         { e.label }
                                     </NavLink>
                                 </NavItem>
                             ))
                         }
-
                     </NavMenu>
                 </NavMenuContainer>
             </NavContainer>
@@ -59,11 +58,16 @@ const LogoContainer = styled(Flex)`
     padding: 5px 10px;
 `;
 
-const Logo = styled(ResposiveContainer)`
+const Logo = styled.a`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
     width: 40px;
     height: 40px;
     padding-bottom: 0;
     background-color: ${ ({ theme })=>theme.color.blue46 };
+    position: relative;
 
     &::after{
         content: "";
@@ -107,9 +111,18 @@ const NavLink = styled.a`
     ${ ({ theme })=>theme.type.main }
     font-weight: 600;
     color: ${ ({ theme })=>theme.color.blue46 };
+    background-color: ${ ({ theme })=>theme.color.white };
     text-align: center;
     padding: 5px 10px;
     margin: 5px 10px;
     text-decoration: none;
+    transform: scale(1);
+    transition: background-color 0.35s ease-out, transform 0.35s ease-out;
+
+    :hover{
+        transform: scale(1.05);
+        color: ${ ({ theme })=>theme.color.white };
+        background-color: ${ ({ theme })=>theme.color.blue46 };
+    }
 `;
 

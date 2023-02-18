@@ -76,7 +76,7 @@ export function Section1(){
     }, [container]);
 
     return(
-        <Section1Container ref={ container }>
+        <Section1Container ref={ container } id="inicio">
             <Section1Wrapper>
                 <TitleContainer>
                     <Logo />

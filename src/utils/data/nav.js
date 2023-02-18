@@ -1,32 +1,41 @@
+import m3g from '../../imgs/m3g.pdf'
+
 export const nav = {
     links: [
         {
             label: 'Sobre Nosotros',
-            link: '#'
+            link: '#nosotros',
+            download: null
         },
         {
             label: 'Somos Sustentables',
-            link: '#'
+            link: '#',
+            download: null
         },
         {
             label: 'Nuestros Principios',
-            link: '#'
+            link: '#',
+            download: null
         },
         {
             label: 'Seguridad',
-            link: '#'
+            link: '#',
+            download: null
         },
         {
             label: 'Desarrollo',
-            link: '#'
+            link: '#',
+            download: null
         },
         {
             label: 'Calidad de Vida',
-            link: '#'
+            link: '#',
+            download: null
         },
         {
             label: 'Descargar PDF',
-            link: '#'
+            link: m3g,
+            download: true
         }
     ],
 };
